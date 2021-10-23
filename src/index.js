@@ -72,6 +72,7 @@ const createDate = ({ year, month, day, }) =>
   new Date(year, month, day, 0, 0, 0, 0);
 
 export const KeyboardDatePicker = ({
+  containerClassName,
   className,
   onChange,
   initialDate = null,
@@ -266,7 +267,7 @@ export const KeyboardDatePicker = ({
   }, [anchor]);
 
   return (
-    <div className={css.keyboardDatePicker_KeyboardDatePickerTis} {...attrs}>
+    <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis,containerClassName)} {...attrs}>
       <div
         className={classNames(css.buttonContainer_KeyboardDatePickerTis, {
           [css.Dark_KeyboardDatePickerTis]: darkMode
@@ -356,6 +357,7 @@ export const KeyboardDatePicker = ({
 };
 
 KeyboardDatePicker.propTypes = {
+  containerClassName: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   initialDate: PropTypes.object,
