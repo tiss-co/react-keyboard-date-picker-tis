@@ -20,8 +20,8 @@ $bg-header-disable-dark: #a7abaf40;
 $bg-hover-light: #d8dade;
 $bg-hover-dark: #4e4f50;
 
-.dateTimePicker_DateTimePickerTis {
-  .buttonContainer_DateTimePickerTis {
+.keyboardDatePicker_KeyboardDatePickerTis {
+  .buttonContainer_KeyboardDatePickerTis {
     display: flex !important;
     flex-flow: row !important;
     align-items: center !important;
@@ -42,7 +42,7 @@ $bg-hover-dark: #4e4f50;
       cursor: pointer;
       padding: 5px;
     }
-    .input_DateTimePickerTis {
+    .input_KeyboardDatePickerTis {
       width: 120px;
       border: none;
       outline: none;
@@ -52,7 +52,7 @@ $bg-hover-dark: #4e4f50;
       color: $font-normal-light;
     }
     
-    .CloseCircle_DateTimePickerTis {
+    .CloseCircle_KeyboardDatePickerTis {
       position: absolute !important;
       right: 10px;
       top: calc(50% - 5px) !important;
@@ -73,36 +73,36 @@ $bg-hover-dark: #4e4f50;
       }
     }
 
-    &.Dark_DateTimePickerTis {
+    &.Dark_KeyboardDatePickerTis {
       border-color: $border-dark;
-      .CloseCircle_DateTimePickerTis {
+      .CloseCircle_KeyboardDatePickerTis {
         background-color: $bg-box-2-dark;
         > svg {
           fill: $font-normal-dark;
         }
       }
-      .input_DateTimePickerTis {
+      .input_KeyboardDatePickerTis {
         color: $font-normal-dark;
       }
     }
   }
 }
 
-.popover_DateTimePickerTis {
+.popover_KeyboardDatePickerTis {
   background-color: transparent !important;
 }
 
-.popoverPaper_DateTimePickerTis {
+.popoverPaper_KeyboardDatePickerTis {
   background-color: $bg-box-light !important;
   box-shadow: 0 0 8px $shadow-light;
 }
 
-.popoverPaperDark_DateTimePickerTis {
+.popoverPaperDark_KeyboardDatePickerTis {
   background-color: $bg-box-dark !important;
   box-shadow: 0 0 8px $shadow-dark;
 }
 
-.container_DateTimePickerTis {
+.container_KeyboardDatePickerTis {
   width: 290px;
   height: 240px;
   display: flex;
@@ -113,23 +113,23 @@ $bg-hover-dark: #4e4f50;
   border-radius: 5px 5px 0 0;
   z-index: 10;
 
-  &.hideTime_DateTimePickerTis {
+  &.hideTime_KeyboardDatePickerTis {
     width: 200px;
   }
 
-  > .dateContainer_DateTimePickerTis {
+  > .dateContainer_KeyboardDatePickerTis {
     height: inherit;
     display: flex;
     flex-direction: column;
     flex: 2;
-    > .header_DateTimePickerTis {
+    > .header_KeyboardDatePickerTis {
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
       padding-left: 10px;
       padding-left: 10px;
 
-      > .year_DateTimePickerTis {
+      > .year_KeyboardDatePickerTis {
         font-weight: bold;
         font-size: var(--font-size-xxx-large);
         cursor: default;
@@ -138,11 +138,11 @@ $bg-hover-dark: #4e4f50;
         color: $font-normal-light;
       }
 
-      > .navigation_DateTimePickerTis {
+      > .navigation_KeyboardDatePickerTis {
         padding: 2px;
       }
 
-      .navIcon_DateTimePickerTis {
+      .navIcon_KeyboardDatePickerTis {
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -153,7 +153,7 @@ $bg-hover-dark: #4e4f50;
           fill: $bg-header-light;
         }
 
-        &.disable_DateTimePickerTis {
+        &.disable_KeyboardDatePickerTis {
           cursor: not-allowed;
 
           svg {
@@ -162,12 +162,12 @@ $bg-hover-dark: #4e4f50;
         }
       }
     }
-    > .days_DateTimePickerTis {
+    > .days_KeyboardDatePickerTis {
       display: flex;
       flex-wrap: wrap;
       flex-grow: 1;
 
-      > .day_DateTimePickerTis {
+      > .day_KeyboardDatePickerTis {
         width: 20%;
         display: inline-flex;
         justify-content: center;
@@ -179,35 +179,35 @@ $bg-hover-dark: #4e4f50;
         font-size: var(--font-size-small) !important;
         border-radius: 5px;
 
-        &.selected_DateTimePickerTis {
+        &.selected_KeyboardDatePickerTis {
           background-color: $selected-color;
           color: #fff;
         }
 
-        &.disable_DateTimePickerTis {
+        &.disable_KeyboardDatePickerTis {
           color: $bg-header-disable-light;
           pointer-events: none;
         }
 
-        &:not(.selected_DateTimePickerTis):not(.disable_DateTimePickerTis):hover {
+        &:not(.selected_KeyboardDatePickerTis):not(.disable_KeyboardDatePickerTis):hover {
           background-color: #d8dade;
         }
       }
     }
   }
 
-  > .timeContainer_DateTimePickerTis {
+  > .timeContainer_KeyboardDatePickerTis {
     border-left: 1px solid $border-light;
     height: inherit;
     display: flex;
     flex-direction: row;
     flex: 1;
 
-    &.hide_DateTimePickerTis {
+    &.hide_KeyboardDatePickerTis {
       display: none;
     }
 
-    > .hours_DateTimePickerTis {
+    > .hours_KeyboardDatePickerTis {
       height: inherit;
       display: block;
       overflow-y: auto;
@@ -216,7 +216,7 @@ $bg-hover-dark: #4e4f50;
       justify-content: center;
       padding: 0 5px 5px 5px;
 
-      > .hourTitle_DateTimePickerTis {
+      > .hourTitle_KeyboardDatePickerTis {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -230,7 +230,7 @@ $bg-hover-dark: #4e4f50;
         background-color: $bg-box-light;
       }
 
-      > .hour_DateTimePickerTis {
+      > .hour_KeyboardDatePickerTis {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -243,18 +243,18 @@ $bg-hover-dark: #4e4f50;
         border-radius: 5px;
         margin: auto;
 
-        &.selected_DateTimePickerTis {
+        &.selected_KeyboardDatePickerTis {
           background-color: $selected-color;
           color: #fff;
         }
 
-        &:not(.selected_DateTimePickerTis):hover {
+        &:not(.selected_KeyboardDatePickerTis):hover {
           background-color: #d8dade;
         }
       }
     }
 
-    > .minutes_DateTimePickerTis {
+    > .minutes_KeyboardDatePickerTis {
       height: inherit;
       display: block;
       overflow-y: auto;
@@ -263,7 +263,7 @@ $bg-hover-dark: #4e4f50;
       justify-content: center;
       padding: 0 5px 5px 5px;
 
-      > .minuteTitle_DateTimePickerTis {
+      > .minuteTitle_KeyboardDatePickerTis {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -277,7 +277,7 @@ $bg-hover-dark: #4e4f50;
         background-color: $bg-box-light;
       }
 
-      > .minute_DateTimePickerTis {
+      > .minute_KeyboardDatePickerTis {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -290,30 +290,30 @@ $bg-hover-dark: #4e4f50;
         border-radius: 5px;
         margin: auto;
 
-        &.selected_DateTimePickerTis {
+        &.selected_KeyboardDatePickerTis {
           background-color: $selected-color;
           color: #fff;
         }
 
-        &:not(.selected_DateTimePickerTis):hover {
+        &:not(.selected_KeyboardDatePickerTis):hover {
           background-color: #d8dade;
         }
       }
     }
   }
-  &.Dark_DateTimePickerTis {
-    > .dateContainer_DateTimePickerTis {
-      > .header_DateTimePickerTis {
-        > .year_DateTimePickerTis {
+  &.Dark_KeyboardDatePickerTis {
+    > .dateContainer_KeyboardDatePickerTis {
+      > .header_KeyboardDatePickerTis {
+        > .year_KeyboardDatePickerTis {
           color: $font-normal-dark;
         }
 
-        .navIcon_DateTimePickerTis {
+        .navIcon_KeyboardDatePickerTis {
           svg {
             fill: $bg-header-dark;
           }
 
-          &.disable_DateTimePickerTis {
+          &.disable_KeyboardDatePickerTis {
             svg {
               fill: $bg-header-disable-dark;
             }
@@ -321,61 +321,61 @@ $bg-hover-dark: #4e4f50;
         }
       }
 
-      > .days_DateTimePickerTis {
-        > .day_DateTimePickerTis {
+      > .days_KeyboardDatePickerTis {
+        > .day_KeyboardDatePickerTis {
           color: #aaa;
 
-          &.selected_DateTimePickerTis {
+          &.selected_KeyboardDatePickerTis {
             color: #fff;
           }
 
-          &.disable_DateTimePickerTis {
+          &.disable_KeyboardDatePickerTis {
             color: $bg-header-disable-dark;
             pointer-events: none;
           }
 
-          &:not(.selected_DateTimePickerTis):not(.disable_DateTimePickerTis):hover {
+          &:not(.selected_KeyboardDatePickerTis):not(.disable_KeyboardDatePickerTis):hover {
             background-color: #d8dade;
           }
         }
       }
     }
 
-    > .timeContainer_DateTimePickerTis {
+    > .timeContainer_KeyboardDatePickerTis {
       border-left: 1px solid $border-dark;
 
-      > .hours_DateTimePickerTis {
-        > .hourTitle_DateTimePickerTis {
+      > .hours_KeyboardDatePickerTis {
+        > .hourTitle_KeyboardDatePickerTis {
           color: #aaa;
           background-color: $bg-box-dark;
         }
 
-        > .hour_DateTimePickerTis {
+        > .hour_KeyboardDatePickerTis {
           color: #aaa;
 
-          &.selected_DateTimePickerTis {
+          &.selected_KeyboardDatePickerTis {
             color: #fff;
           }
 
-          &:not(.selected_DateTimePickerTis):hover {
+          &:not(.selected_KeyboardDatePickerTis):hover {
             background-color: #d8dade;
           }
         }
       }
 
-      > .minutes_DateTimePickerTis {
-        > .minuteTitle_DateTimePickerTis {
+      > .minutes_KeyboardDatePickerTis {
+        > .minuteTitle_KeyboardDatePickerTis {
           color: #aaa;
           background-color: $bg-box-dark;
         }
-        > .minute_DateTimePickerTis {
+        > .minute_KeyboardDatePickerTis {
           color: #aaa;
 
-          &.selected_DateTimePickerTis {
+          &.selected_KeyboardDatePickerTis {
             color: #fff;
           }
 
-          &:not(.selected_DateTimePickerTis):hover {
+          &:not(.selected_KeyboardDatePickerTis):hover {
             background-color: #d8dade;
           }
         }
@@ -384,12 +384,12 @@ $bg-hover-dark: #4e4f50;
   }
 }
 
-.submitContainer_DateTimePickerTis {
+.submitContainer_KeyboardDatePickerTis {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  > .SubmitButton_DateTimePickerTis {
+  > .SubmitButton_KeyboardDatePickerTis {
     width: 100%;
     background-color: $bg-box-light;
     color: $font-normal-light;
@@ -407,8 +407,8 @@ $bg-hover-dark: #4e4f50;
     }
   }
 
-  &.Dark_DateTimePickerTis {
-    > .SubmitButton_DateTimePickerTis {
+  &.Dark_KeyboardDatePickerTis {
+    > .SubmitButton_KeyboardDatePickerTis {
       background-color: $bg-box-dark;
       color: $font-normal-dark;
       box-shadow: 0 2px 3px $shadow-dark;

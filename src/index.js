@@ -266,14 +266,14 @@ export const KeyboardDatePicker = ({
   }, [anchor]);
 
   return (
-    <div className={css.dateTimePicker_DateTimePickerTis} {...attrs}>
+    <div className={css.keyboardDatePicker_KeyboardDatePickerTis} {...attrs}>
       <div
-        className={classNames(css.buttonContainer_DateTimePickerTis, {
-          [css.Dark_DateTimePickerTis]: darkMode
-        })}
+        className={classNames(css.buttonContainer_KeyboardDatePickerTis, {
+          [css.Dark_KeyboardDatePickerTis]: darkMode
+        }, className)}
       >
         <input
-          className={css.input_DateTimePickerTis}
+          className={css.input_KeyboardDatePickerTis}
           type='text'
           placeholder='yyyy/mm/dd'
           value={inputValue}
@@ -283,9 +283,9 @@ export const KeyboardDatePicker = ({
       </div>
 
       <Popover
-        className={css.popover_DateTimePickerTis}
+        className={css.popover_KeyboardDatePickerTis}
         PaperProps={{
-          className: darkMode ? css.popoverPaperDark_DateTimePickerTis : css.popoverPaper_DateTimePickerTis
+          className: darkMode ? css.popoverPaperDark_KeyboardDatePickerTis : css.popoverPaper_KeyboardDatePickerTis
         }}
         open={Boolean(anchor)}
         anchorEl={anchor}
@@ -300,22 +300,22 @@ export const KeyboardDatePicker = ({
         }}
       >
         <div
-          className={classNames(css.container_DateTimePickerTis, {
-            [css.hideTime_DateTimePickerTis]: true,
-            [css.Dark_DateTimePickerTis]: darkMode
+          className={classNames(css.container_KeyboardDatePickerTis, {
+            [css.hideTime_KeyboardDatePickerTis]: true,
+            [css.Dark_KeyboardDatePickerTis]: darkMode
           })}
         >
-          <div className={css.dateContainer_DateTimePickerTis}>
-            <header className={css.header_DateTimePickerTis}>
-              <span className={css.year_DateTimePickerTis}>
+          <div className={css.dateContainer_KeyboardDatePickerTis}>
+            <header className={css.header_KeyboardDatePickerTis}>
+              <span className={css.year_KeyboardDatePickerTis}>
                 {`${getMonthName(date.month, true)} ${date.year
                   }`}
               </span>
 
-              <div className={css.navigation_DateTimePickerTis}>
+              <div className={css.navigation_KeyboardDatePickerTis}>
                 <button
-                  className={classNames(css.navIcon_DateTimePickerTis, {
-                    [css.disable_DateTimePickerTis]: disableNavigationIcon(false),
+                  className={classNames(css.navIcon_KeyboardDatePickerTis, {
+                    [css.disable_KeyboardDatePickerTis]: disableNavigationIcon(false),
                   })}
                   disabled={disableNavigationIcon(false)}
                   onClick={() => onNavigationClick(false)}
@@ -323,8 +323,8 @@ export const KeyboardDatePicker = ({
                   <PrevIcon />
                 </button>{' '}
                 <button
-                  className={classNames(css.navIcon_DateTimePickerTis, {
-                    [css.disable_DateTimePickerTis]: disableNavigationIcon(true),
+                  className={classNames(css.navIcon_KeyboardDatePickerTis, {
+                    [css.disable_KeyboardDatePickerTis]: disableNavigationIcon(true),
                   })}
                   disabled={disableNavigationIcon(true)}
                   onClick={() => onNavigationClick(true)}
@@ -334,13 +334,13 @@ export const KeyboardDatePicker = ({
               </div>
             </header>
 
-            <div className={css.days_DateTimePickerTis}>
+            <div className={css.days_KeyboardDatePickerTis}>
               {new Array(31).fill(null).map((_, index) => (
                 <div
                   key={index}
-                  className={classNames(css.day_DateTimePickerTis, {
-                    [css.selected_DateTimePickerTis]: date.day === index + 1,
-                    [css.disable_DateTimePickerTis]: disableDay(index + 1),
+                  className={classNames(css.day_KeyboardDatePickerTis, {
+                    [css.selected_KeyboardDatePickerTis]: date.day === index + 1,
+                    [css.disable_KeyboardDatePickerTis]: disableDay(index + 1),
                   })}
                   onClick={() => onDayClick(index)}
                 >
