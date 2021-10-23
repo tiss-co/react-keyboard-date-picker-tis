@@ -244,7 +244,7 @@ export const KeyboardDatePicker = ({
 
         onChange && onChange({
           year: parseInt(year),
-          month: parseInt(month),
+          month: parseInt(month - 1),
           day: parseInt(day)
         });
 
