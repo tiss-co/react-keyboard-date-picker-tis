@@ -120,6 +120,8 @@ export const KeyboardDatePicker = ({
     onChange && onChange(date);
 
     setDate(date);
+    setInputValue(`${date.year}/${addZeroPad(date.month + 1)}/${addZeroPad(date.day)}`);
+
   };
 
   const onMonthChange = () => {
@@ -267,7 +269,7 @@ export const KeyboardDatePicker = ({
   }, [anchor]);
 
   return (
-    <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis,containerClassName)} {...attrs}>
+    <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis, containerClassName)} {...attrs}>
       <div
         className={classNames(css.buttonContainer_KeyboardDatePickerTis, {
           [css.Dark_KeyboardDatePickerTis]: darkMode
