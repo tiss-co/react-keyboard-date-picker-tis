@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-date-picker-tis.svg)](https://www.npmjs.com/package/react-date-picker-tis) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-![react-keyboard-date-picker-tis Banner](https://user-images.githubusercontent.com/76048512/119546988-c9575a80-bda9-11eb-99e0-cf797c393ef3.gif)
+![react-keyboard-date-picker-tis Banner](https://user-images.githubusercontent.com/76048512/138558963-f6408de2-3095-4fee-805f-e1aeed22106a.gif)
 
 
 ## Install
