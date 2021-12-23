@@ -242,10 +242,16 @@ export const KeyboardDatePicker = ({
 
         mValue = `${year}/${month}/${day}`;
 
-        onChange && onChange({
+        const mDate = {
           year: parseInt(year),
           month: parseInt(month),
           day: parseInt(day)
+        };
+
+        onChange && onChange(mDate);
+        setDate({
+          ...mDate,
+          month: mDate.month - 1
         });
 
       }
