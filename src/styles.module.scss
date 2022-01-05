@@ -34,6 +34,7 @@ $bg-hover-dark: #4e4f50;
     border: 1px solid $border-light;
     border-radius: 4.5px !important;
     padding: 5px 15px;
+    color: &font-normal-light;
     svg {
       width: 18px;
       height: 17px;
@@ -50,11 +51,11 @@ $bg-hover-dark: #4e4f50;
       font-size: var(--font-size-medium);
       color: $font-normal-light;
       text-align: center;
-      &.input_small_KeyboardDatePickerTis{
+      &.input_small_KeyboardDatePickerTis {
         width: 25px;
       }
     }
-    
+
     .CloseCircle_KeyboardDatePickerTis {
       position: absolute !important;
       right: 10px;
@@ -78,6 +79,7 @@ $bg-hover-dark: #4e4f50;
 
     &.Dark_KeyboardDatePickerTis {
       border-color: $border-dark;
+      color: &font-normal-dark;
       .CloseCircle_KeyboardDatePickerTis {
         background-color: $bg-box-2-dark;
         > svg {
