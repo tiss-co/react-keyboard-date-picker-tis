@@ -110,8 +110,13 @@ export const KeyboardDatePicker = ({
 
   const [anchor, setAnchor] = useState(null);
   const [date, setDate] = useState(initialDate);
-  const [inputValue, setInputValue] = useState('');
   const [monthLength, setMonthLength] = useState(initialMonthLength);
+  const [inputYear, setInputYear] = useState('');
+  const [inputMonth, setInputMonth] = useState('');
+  const [inputDay, setInputDay] = useState('');
+
+  const montInputRef = useRef();
+  const dayInputRef = useRef();
 
   updateDatePicker.current = (date) => {
     if (!isSelected) setIsSelected(true);
@@ -120,8 +125,10 @@ export const KeyboardDatePicker = ({
     onChange && onChange(date);
 
     setDate(date);
-    setInputValue(`${date.year}/${addZeroPad(date.month + 1)}/${addZeroPad(date.day)}`);
 
+    setInputYear(date.year);
+    setInputMonth(addZeroPad(date.month + 1));
+    setInputDay(addZeroPad(date.day));
   };
 
   const onMonthChange = () => {
@@ -216,49 +223,54 @@ export const KeyboardDatePicker = ({
     });
 
     setDate(mDate);
-    setInputValue(`${mDate.year}/${addZeroPad(mDate.month + 1)}/${addZeroPad(mDate.day)}`);
+
+    setInputYear(mDate.year);
+    setInputMonth(addZeroPad(mDate.month + 1));
+    setInputDay(addZeroPad(mDate.day));
   };
 
-  const onInputChange = (value) => {
-    if (value?.length > inputValue?.length) {
-      let mValue = value.split('/').join('');
-      if (isNaN(+mValue))
-        return;
-      if (mValue.length > 3 && mValue?.length < 7) {
-        const year = mValue.substring(0, 4);
-        const month = mValue.substring(4, 6);
-        mValue = `${year}/${month}`;
-      } else if (mValue?.length >= 7) {
-        const year = mValue.substring(0, 4);
-        const month = mValue.substring(4, 6);
-        const day = mValue.substring(6, 8);
-
-        const monthLength = new Date(
-          parseInt(year),
-          parseInt(month),
-          0
-        ).getDate();
-        if (parseInt(day) > monthLength) return
-
-        mValue = `${year}/${month}/${day}`;
-
-        const mDate = {
-          year: parseInt(year),
-          month: parseInt(month),
-          day: parseInt(day)
-        };
-
-        onChange && onChange(mDate);
-        setDate({
-          ...mDate,
-          month: mDate.month - 1
-        });
-
-      }
-      setInputValue(mValue);
+  const onInputYearChange = (value) => {
+    setInputYear(value);
+    if (value?.length === 4) {
+      const mDate = {
+        ...date,
+        year: parseInt(value),
+      };
+      onChange && onChange(mDate);
+      setDate(mDate);
+      montInputRef.current?.focus();
     }
-    else
-      setInputValue(value);
+  };
+
+  const onInputMonthChange = (value) => {
+    setInputMonth(value);
+    if (value?.length >= 1) {
+      const mDate = {
+        ...date,
+        month: parseInt(value) - 1,
+      };
+      onChange && onChange({
+        ...date,
+        month: parseInt(value),
+      });
+      setDate(mDate);
+      value?.length === 2 && dayInputRef.current?.focus();
+    }
+  };
+
+  const onInputDayChange = (value) => {
+    setInputDay(value);
+    if (value?.length >= 1) {
+      const mDate = {
+        ...date,
+        day: parseInt(value),
+      };
+      onChange && onChange({
+        ...mDate,
+        month: mDate.month + 1
+      });
+      setDate(mDate);
+    }
   };
 
   useEffect(() => {
@@ -284,9 +296,27 @@ export const KeyboardDatePicker = ({
         <input
           className={css.input_KeyboardDatePickerTis}
           type='text'
-          placeholder='yyyy/mm/dd'
-          value={inputValue}
-          onChange={({ target: { value } }) => onInputChange(value)}
+          placeholder='yyyy'
+          value={inputYear}
+          onChange={({ target: { value } }) => onInputYearChange(value)}
+        />
+        /
+        <input
+          className={classNames(css.input_KeyboardDatePickerTis, css.input_small_KeyboardDatePickerTis)}
+          type='text'
+          placeholder='mm'
+          value={inputMonth}
+          onChange={({ target: { value } }) => onInputMonthChange(value)}
+          ref={montInputRef}
+        />
+        /
+        <input
+          className={classNames(css.input_KeyboardDatePickerTis, css.input_small_KeyboardDatePickerTis)}
+          type='text'
+          placeholder='dd'
+          value={inputDay}
+          onChange={({ target: { value } }) => onInputDayChange(value)}
+          ref={dayInputRef}
         />
         <CalendarIcon onClick={e => setAnchor(e.currentTarget)} />
       </div>

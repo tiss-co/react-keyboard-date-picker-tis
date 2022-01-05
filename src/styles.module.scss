@@ -43,13 +43,16 @@ $bg-hover-dark: #4e4f50;
       padding: 5px;
     }
     .input_KeyboardDatePickerTis {
-      width: 120px;
+      width: 35px;
       border: none;
       outline: none;
-      padding: 5px;
       font-family: $font-family-regular;
       font-size: var(--font-size-medium);
       color: $font-normal-light;
+      text-align: center;
+      &.input_small_KeyboardDatePickerTis{
+        width: 25px;
+      }
     }
     
     .CloseCircle_KeyboardDatePickerTis {
