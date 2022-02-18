@@ -187,6 +187,9 @@ $bg-hover-dark: #4e4f50;
         &.selected_KeyboardDatePickerTis {
           background-color: $selected-color;
           color: #fff;
+          &.disable_KeyboardDatePickerTis {
+            color: #fff;
+          }
         }
 
         &.disable_KeyboardDatePickerTis {

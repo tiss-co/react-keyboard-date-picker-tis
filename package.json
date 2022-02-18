@@ -1,6 +1,6 @@
 {
   "name": "react-keyboard-date-picker-tis",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "author": "boof-tech",
   "license": "MIT",
@@ -53,6 +53,6 @@
   "dependencies": {
     "@material-ui/core": "4.11.0",
     "classnames": "2.3.1",
-    "node-sass": "4.14.1"
+    "node-sass": "^7.0.1"
   }
 }
