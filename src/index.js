@@ -122,13 +122,19 @@ export const KeyboardDatePicker = ({
     if (!isSelected) setIsSelected(true);
 
     setAnchor(null);
-    onChange && onChange(date);
+    setDate(date || todayDate);
 
-    setDate(date);
+    if (!date)
+      date = {
+        year: null,
+        month: null,
+        day: null
+      };
 
-    setInputYear(date.year);
-    setInputMonth(addZeroPad(date.month));
-    setInputDay(addZeroPad(date.day));
+
+    setInputYear(date?.year);
+    setInputMonth(date?.month ? addZeroPad(date.month) : null);
+    setInputDay(date?.day ? addZeroPad(date.day) : null);
   };
 
   const onMonthChange = () => {
@@ -288,7 +294,7 @@ export const KeyboardDatePicker = ({
           className={classNames(css.input_KeyboardDatePickerTis, css.input_small_KeyboardDatePickerTis)}
           type='text'
           placeholder='mm'
-          value={inputMonth}
+          value={inputMonth || ''}
           onChange={({ target: { value } }) => onInputMonthChange(value)}
         />
         /
@@ -296,7 +302,7 @@ export const KeyboardDatePicker = ({
           className={classNames(css.input_KeyboardDatePickerTis, css.input_small_KeyboardDatePickerTis)}
           type='text'
           placeholder='dd'
-          value={inputDay}
+          value={inputDay || ''}
           onChange={({ target: { value } }) => onInputDayChange(value)}
           ref={dayInputRef}
         />
@@ -305,7 +311,7 @@ export const KeyboardDatePicker = ({
           className={css.input_KeyboardDatePickerTis}
           type='text'
           placeholder='yyyy'
-          value={inputYear}
+          value={inputYear || ''}
           onChange={({ target: { value } }) => onInputYearChange(value)}
           ref={yearInputRef}
         />
