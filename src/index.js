@@ -257,7 +257,7 @@ export const KeyboardDatePicker = ({
       };
       onChange && onChange(mDate);
       setDate(mDate);
-      if (parseInt(value) < 1 || parseInt(value) > 12)
+      if (parseInt(value) < 0 || parseInt(value) > 12)
         return;
       value?.length === 2 && dayInputRef.current?.focus();
     }
@@ -296,16 +296,33 @@ export const KeyboardDatePicker = ({
         setInputMonth(addZeroPad(date.month));
         setInputDay(addZeroPad(date.day));
       }
-
     }
   }, [dateAnchor]);
 
   useEffect(() => {
-    if (yearAnchor)
+    if (yearAnchor) {
       setTimeout(() => {
         scrollToItem('selected-year');
       }, 0);
+    }
   }, [yearAnchor]);
+
+  useEffect(() => {
+    const monthLength = new Date(
+      date.year,
+      date.month,
+      0
+    ).getDate();
+    setMonthLength(monthLength);
+
+    if (date.day > monthLength) {
+      setDate(prev => ({
+        ...prev,
+        day: monthLength
+      }));
+      setInputDay(monthLength);
+    }
+  }, [dateAnchor, yearAnchor]);
 
   return (
     <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis, containerClassName)} {...attrs}>
