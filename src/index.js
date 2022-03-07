@@ -9,49 +9,49 @@ const addZeroPad = number => {
   return number < 10 ? '0' + number : number;
 };
 
-const scrollToItem = (itemId) => {
+const scrollToItem = (itemId, behavior = 'auto') => {
   var parent = document.getElementById(itemId)?.parentElement;
   var item = document.getElementById(itemId);
   parent && parent.scrollTo({
-    top: item.offsetTop - item.offsetHeight,
-    behavior: 'auto',
+    top: item?.offsetTop - 10,
+    behavior,
   });
 };
 
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+const smallMonthNames = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 /**
  * @param {number} month
  * @param {boolean} withSmallName
  * @returns {string} month name
  */
 const getMonthName = (month, withSmallName = false) => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const smallMonthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
   if (withSmallName) {
     return smallMonthNames[month] ? smallMonthNames[month] : 'Dec';
   } else {
@@ -461,24 +461,55 @@ export const KeyboardDatePicker = ({
           [css.Dark_YearPickerTis]: darkMode
         })}>
           {
-            Array(200).fill(undefined).map((item, index) =>
+            Array(200).fill(undefined).map((item, yearIndex) =>
               <div
-                key={index}
-                id={(today.getFullYear() - 100) + index === date.year ? 'selected-year' : undefined}
-                className={classNames({
-                  [css.selected_YearPickerTis]: (today.getFullYear() - 100) + index === date.year
-                })}
-                onClick={() => {
-                  const year = (today.getFullYear() - 100) + index;
-                  setDate(prev => ({
-                    ...prev,
-                    year
-                  }));
-                  setInputYear(year);
-                  setYearAnchor(null);
-                }}
+                className={css.yearContainer_YearPickerTis}
+                key={yearIndex}
+                id={(today.getFullYear() - 100) + yearIndex === date.year ? 'selected-year' : undefined}
               >
-                {(today.getFullYear() - 100) + index}
+                <div
+                  className={classNames(css.year_YearPickerTis, {
+                    [css.selectedYear_YearPickerTis]: (today.getFullYear() - 100) + yearIndex === date.year
+                  })}
+                  onClick={() => {
+                    const year = (today.getFullYear() - 100) + yearIndex;
+                    setDate(prev => ({
+                      ...prev,
+                      year
+                    }));
+                    setInputYear(year);
+                    setTimeout(() => {
+                      scrollToItem('selected-year', 'smooth');
+                    }, 0);
+                  }}
+                >
+                  {(today.getFullYear() - 100) + yearIndex}
+                </div>
+                {
+                  ((today.getFullYear() - 100) + yearIndex === date.year) &&
+                  <div className={css.monthsContainer_YearPickerTis}>
+                    {
+                      smallMonthNames.map((month, index) =>
+                        <div
+                          key={month}
+                          className={classNames(css.month_YearPickerTis, {
+                            [css.selectedMonth_YearPickerTis]: index === date.month - 1
+                          })}
+                          onClick={() => {
+                            const month = index + 1;
+                            setDate(prev => ({
+                              ...prev,
+                              month
+                            }));
+                            setInputMonth(addZeroPad(month));
+                            setYearAnchor(null);
+                          }}>
+                          {month}
+                        </div>
+                      )
+                    }
+                  </div>
+                }
               </div>
             )
           }

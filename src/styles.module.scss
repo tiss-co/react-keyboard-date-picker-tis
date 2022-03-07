@@ -18,6 +18,7 @@ $bg-header-dark: #a7abaf;
 $bg-header-disable-light: #5d667040;
 $bg-header-disable-dark: #a7abaf40;
 $bg-hover-light: #d8dade;
+$bg-hover-light-alpha: #d8dade69;
 $bg-hover-dark: #4e4f50;
 
 .keyboardDatePicker_KeyboardDatePickerTis {
@@ -445,7 +446,7 @@ $bg-hover-dark: #4e4f50;
 
 .container_YearPickerTis {
   width: fit-content !important;
-  height: 400px !important;
+  height: 300px !important;
   border: 1px solid $border-light;
   border-radius: 4.5px !important;
   padding: 5px 15px;
@@ -453,28 +454,56 @@ $bg-hover-dark: #4e4f50;
   overflow-y: auto;
   overflow-x: hidden;
 
-  > div {
+  .yearContainer_YearPickerTis {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
     color: #888;
     cursor: pointer;
     transition: 0.2s;
     font-family: $font-family-medium;
     font-size: var(--font-size-large) !important;
-    padding: 10px;
-    border-radius: 5px;
-    margin: auto;
-
-    &.selected_YearPickerTis {
-      background-color: $selected-color;
-      color: #fff;
+    border-radius: 0;
+    .year_YearPickerTis {
+      width: 100%;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid $bg-hover-light;
+      &.selectedYear_YearPickerTis {
+        background-color: $bg-hover-light;
+      }
+      &:not(.selectedYear_YearPickerTis):hover {
+        background-color: $bg-hover-light-alpha;
+      }
     }
-
-    &:not(.selected_YearPickerTis):hover {
-      background-color: #d8dade;
+    .monthsContainer_YearPickerTis {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      margin: 10px 0;
+      .month_YearPickerTis {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: #888;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: $font-family-medium;
+        font-size: var(--font-size-small) !important;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 5px;
+        &.selectedMonth_YearPickerTis {
+          background-color: $selected-color;
+          color: #fff;
+        }
+        &:not(.selectedMonth_YearPickerTis):hover {
+          background-color: $bg-hover-light;
+        }
+      }
     }
   }
+
   &.Dark_YearPickerTis {
     border-color: $border-dark;
     color: &$font-normal-dark;
