@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Popover } from '@material-ui/core';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { PrevIcon, NextIcon, CalendarIcon } from './assets/icons';
+import { PrevIcon, NextIcon, CalendarIcon, DownTriangleIcon } from './assets/icons';
 import css from './styles.module.scss';
 
 const addZeroPad = number => {
@@ -13,7 +13,7 @@ const scrollToItem = (itemId) => {
   var parent = document.getElementById(itemId)?.parentElement;
   var item = document.getElementById(itemId);
   parent && parent.scrollTo({
-    top: item.offsetTop - (item.offsetHeight * 2) + 5,
+    top: item.offsetTop - item.offsetHeight,
     behavior: 'auto',
   });
 };
@@ -76,7 +76,7 @@ export const KeyboardDatePicker = ({
   className,
   onChange,
   initialDate = null,
-  min = { ...todayDate },
+  min = null,
   max = null,
   removeButton = true,
   darkMode = false,
@@ -108,7 +108,8 @@ export const KeyboardDatePicker = ({
     ).getDate()
     ;
 
-  const [anchor, setAnchor] = useState(null);
+  const [dateAnchor, setDateAnchor] = useState(null);
+  const [yearAnchor, setYearAnchor] = useState(null);
   const [date, setDate] = useState(initialDate);
   const [monthLength, setMonthLength] = useState(initialMonthLength);
   const [inputYear, setInputYear] = useState('');
@@ -121,7 +122,7 @@ export const KeyboardDatePicker = ({
   updateDatePicker.current = (date) => {
     if (!isSelected) setIsSelected(true);
 
-    setAnchor(null);
+    setDateAnchor(null);
     setDate(date || todayDate);
 
     if (!date)
@@ -221,7 +222,7 @@ export const KeyboardDatePicker = ({
     };
     if (!isSelected) setIsSelected(true);
 
-    setAnchor(null);
+    setDateAnchor(null);
     onChange && onChange(mDate);
 
     setDate(mDate);
@@ -277,11 +278,25 @@ export const KeyboardDatePicker = ({
   useEffect(onMonthChange, [date.month]);
 
   useEffect(() => {
-    if (anchor)
+    if (dateAnchor) {
       setTimeout(() => {
         scrollToItem('selected-minute');
       }, 0);
-  }, [anchor]);
+      if (!inputYear && !inputMonth && !inputDay) {
+        setInputYear(date.year);
+        setInputMonth(addZeroPad(date.month));
+        setInputDay(addZeroPad(date.day));
+      }
+
+    }
+  }, [dateAnchor]);
+
+  useEffect(() => {
+    if (yearAnchor)
+      setTimeout(() => {
+        scrollToItem('selected-year');
+      }, 0);
+  }, [yearAnchor]);
 
   return (
     <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis, containerClassName)} {...attrs}>
@@ -315,7 +330,7 @@ export const KeyboardDatePicker = ({
           onChange={({ target: { value } }) => onInputYearChange(value)}
           ref={yearInputRef}
         />
-        <CalendarIcon onClick={e => setAnchor(e.currentTarget)} />
+        <CalendarIcon onClick={e => setDateAnchor(e.currentTarget)} />
       </div>
 
       <Popover
@@ -323,9 +338,9 @@ export const KeyboardDatePicker = ({
         PaperProps={{
           className: darkMode ? css.popoverPaperDark_KeyboardDatePickerTis : css.popoverPaper_KeyboardDatePickerTis
         }}
-        open={Boolean(anchor)}
-        anchorEl={anchor}
-        onClose={() => setAnchor(null)}
+        open={Boolean(dateAnchor)}
+        anchorEl={dateAnchor}
+        onClose={() => setDateAnchor(null)}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -343,9 +358,10 @@ export const KeyboardDatePicker = ({
         >
           <div className={css.dateContainer_KeyboardDatePickerTis}>
             <header className={css.header_KeyboardDatePickerTis}>
-              <span className={css.year_KeyboardDatePickerTis}>
+              <span className={css.year_KeyboardDatePickerTis}
+                onClick={e => setYearAnchor(e.currentTarget)}>
                 {`${getMonthName(date.month - 1, true)} ${date.year
-                  }`}
+                  }`} <DownTriangleIcon />
               </span>
 
               <div className={css.navigation_KeyboardDatePickerTis}>
@@ -385,6 +401,50 @@ export const KeyboardDatePicker = ({
               ))}
             </div>
           </div>
+        </div>
+      </Popover>
+      <Popover
+        className={css.popover_KeyboardDatePickerTis}
+        PaperProps={{
+          className: darkMode ? css.popoverPaperDark_KeyboardDatePickerTis : css.popoverPaper_KeyboardDatePickerTis
+        }}
+        open={Boolean(yearAnchor)}
+        anchorEl={yearAnchor}
+        onClose={() => setYearAnchor(null)}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div className={classNames(css.container_YearPickerTis, {
+          [css.Dark_YearPickerTis]: darkMode
+        })}>
+          {
+            Array(200).fill(undefined).map((item, index) =>
+              <div
+                key={index}
+                id={(today.getFullYear() - 100) + index === date.year ? 'selected-year' : undefined}
+                className={classNames({
+                  [css.selected_YearPickerTis]: (today.getFullYear() - 100) + index === date.year
+                })}
+                onClick={() => {
+                  const year = (today.getFullYear() - 100) + index;
+                  setDate(prev => ({
+                    ...prev,
+                    year
+                  }));
+                  setInputYear(year);
+                  setYearAnchor(null);
+                }}
+              >
+                {(today.getFullYear() - 100) + index}
+              </div>
+            )
+          }
         </div>
       </Popover>
     </div>

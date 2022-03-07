@@ -137,10 +137,21 @@ $bg-hover-dark: #4e4f50;
       > .year_KeyboardDatePickerTis {
         font-weight: bold;
         font-size: var(--font-size-xxx-large);
-        cursor: default;
+        cursor: pointer;
         transition: 0.2s;
         font-family: $font-family-bold;
         color: $font-normal-light;
+        padding: 5px 0 5px 5px;
+        svg {
+          width: 14px;
+          height: 14px;
+          fill: $bg-header-light;
+          margin-bottom: -5px;
+        }
+        &:hover {
+          background-color: #1977f20c;
+          border-radius: 5px;
+        }
       }
 
       > .navigation_KeyboardDatePickerTis {
@@ -314,6 +325,9 @@ $bg-hover-dark: #4e4f50;
       > .header_KeyboardDatePickerTis {
         > .year_KeyboardDatePickerTis {
           color: $font-normal-dark;
+          svg {
+            fill: $bg-header-dark;
+          }
         }
 
         .navIcon_KeyboardDatePickerTis {
@@ -424,5 +438,43 @@ $bg-hover-dark: #4e4f50;
         background-color: $bg-hover-dark;
       }
     }
+  }
+}
+
+.container_YearPickerTis {
+  width: fit-content !important;
+  height: 400px !important;
+  border: 1px solid $border-light;
+  border-radius: 4.5px !important;
+  padding: 5px 15px;
+  color: &font-normal-light;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: $font-family-medium;
+    font-size: var(--font-size-large) !important;
+    padding: 10px;
+    border-radius: 5px;
+    margin: auto;
+
+    &.selected_YearPickerTis {
+      background-color: $selected-color;
+      color: #fff;
+    }
+
+    &:not(.selected_YearPickerTis):hover {
+      background-color: #d8dade;
+    }
+  }
+  &.Dark_YearPickerTis {
+    border-color: $border-dark;
+    color: &$font-normal-dark;
   }
 }
