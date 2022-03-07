@@ -44,7 +44,7 @@ $bg-hover-dark: #4e4f50;
       padding: 5px;
     }
     .input_KeyboardDatePickerTis {
-      width: 35px;
+      width: 50px;
       border: none;
       outline: none;
       font-family: $font-family-regular;
@@ -52,7 +52,7 @@ $bg-hover-dark: #4e4f50;
       color: $font-normal-light;
       text-align: center;
       &.input_small_KeyboardDatePickerTis {
-        width: 25px;
+        width: 30px;
       }
     }
 
@@ -130,13 +130,14 @@ $bg-hover-dark: #4e4f50;
     > .header_KeyboardDatePickerTis {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
       padding-left: 10px;
       padding-left: 10px;
 
       > .year_KeyboardDatePickerTis {
         font-weight: bold;
-        font-size: var(--font-size-xx-large);
+        font-size: var(--font-size-x-large);
         cursor: pointer;
         transition: 0.2s;
         font-family: $font-family-bold;
