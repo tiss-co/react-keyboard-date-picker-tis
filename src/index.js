@@ -52,7 +52,11 @@ const getMonthName = (month, withSmallName = false) => {
     'Nov',
     'Dec',
   ];
-  return withSmallName ? smallMonthNames[month] : monthNames[month];
+  if (withSmallName) {
+    return smallMonthNames[month] ? smallMonthNames[month] : 'Dec';
+  } else {
+    return monthNames[month] ? monthNames[month] : 'December';
+  }
 };
 
 /**
@@ -117,6 +121,7 @@ export const KeyboardDatePicker = ({
   const [inputDay, setInputDay] = useState('');
 
   const yearInputRef = useRef();
+  const monthInputRef = useRef();
   const dayInputRef = useRef();
 
   updateDatePicker.current = (date) => {
@@ -245,7 +250,6 @@ export const KeyboardDatePicker = ({
   };
 
   const onInputMonthChange = (value) => {
-    setInputMonth(value);
     if (value?.length >= 1) {
       const mDate = {
         ...date,
@@ -253,12 +257,14 @@ export const KeyboardDatePicker = ({
       };
       onChange && onChange(mDate);
       setDate(mDate);
+      if (parseInt(value) < 1 || parseInt(value) > 12)
+        return;
       value?.length === 2 && dayInputRef.current?.focus();
     }
+    setInputMonth(value);
   };
 
   const onInputDayChange = (value) => {
-    setInputDay(value);
     if (value?.length >= 1) {
       const mDate = {
         ...date,
@@ -266,9 +272,12 @@ export const KeyboardDatePicker = ({
       };
       onChange && onChange(mDate);
       setDate(mDate);
+      if (parseInt(value) < 1 || parseInt(value) > 31)
+        return;
       if (value?.length === 2)
         yearInputRef.current?.focus();
     }
+    setInputDay(value);
   };
 
   useEffect(() => {
@@ -311,6 +320,8 @@ export const KeyboardDatePicker = ({
           placeholder='mm'
           value={inputMonth || ''}
           onChange={({ target: { value } }) => onInputMonthChange(value)}
+          autoFocus
+          ref={monthInputRef}
         />
         /
         <input
@@ -320,6 +331,10 @@ export const KeyboardDatePicker = ({
           value={inputDay || ''}
           onChange={({ target: { value } }) => onInputDayChange(value)}
           ref={dayInputRef}
+          onKeyDown={e => {
+            if (e.key === 'Backspace' && inputDay.length === 0)
+              monthInputRef.current?.focus();
+          }}
         />
         /
         <input
@@ -329,6 +344,10 @@ export const KeyboardDatePicker = ({
           value={inputYear || ''}
           onChange={({ target: { value } }) => onInputYearChange(value)}
           ref={yearInputRef}
+          onKeyDown={e => {
+            if (e.key === 'Backspace' && inputYear.length === 0)
+              dayInputRef.current?.focus();
+          }}
         />
         <CalendarIcon onClick={e => setDateAnchor(e.currentTarget)} />
       </div>

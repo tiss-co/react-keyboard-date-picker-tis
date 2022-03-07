@@ -136,12 +136,13 @@ $bg-hover-dark: #4e4f50;
 
       > .year_KeyboardDatePickerTis {
         font-weight: bold;
-        font-size: var(--font-size-xxx-large);
+        font-size: var(--font-size-xx-large);
         cursor: pointer;
         transition: 0.2s;
         font-family: $font-family-bold;
         color: $font-normal-light;
         padding: 5px 0 5px 5px;
+        white-space: nowrap !important;
         svg {
           width: 14px;
           height: 14px;
