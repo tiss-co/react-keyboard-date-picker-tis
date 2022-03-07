@@ -87,6 +87,7 @@ export const KeyboardDatePicker = ({
   startIcon,
   downIcon,
   updateDatePicker = { current: () => { } },
+  autoFocus = false,
   ...attrs
 }) => {
   const hasInitialDate = useRef(false);
@@ -337,7 +338,7 @@ export const KeyboardDatePicker = ({
           placeholder='mm'
           value={inputMonth || ''}
           onChange={({ target: { value } }) => onInputMonthChange(value)}
-          autoFocus
+          autoFocus={autoFocus}
           ref={monthInputRef}
         />
         /
@@ -498,4 +499,5 @@ KeyboardDatePicker.propTypes = {
   startIcon: PropTypes.any,
   downIcon: PropTypes.any,
   updateDatePicker: PropTypes.object,
+  autoFocus: PropTypes.bool,
 };
