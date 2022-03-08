@@ -109,7 +109,7 @@ $bg-hover-dark: #4e4f50;
 }
 
 .container_KeyboardDatePickerTis {
-  width: 290px;
+  width: fit-content;
   height: 240px;
   display: flex;
   flex-direction: row;
@@ -120,7 +120,8 @@ $bg-hover-dark: #4e4f50;
   z-index: 10;
 
   &.hideTime_KeyboardDatePickerTis {
-    width: 200px;
+    width: fit-content;
+    max-width: 250px;
   }
 
   > .dateContainer_KeyboardDatePickerTis {
@@ -138,18 +139,19 @@ $bg-hover-dark: #4e4f50;
 
       > .year_KeyboardDatePickerTis {
         font-weight: bold;
-        font-size: var(--font-size-x-large);
+        font-size: var(--font-size-large);
+        font-size: 24px;
         cursor: pointer;
         transition: 0.2s;
         font-family: $font-family-bold;
         color: $font-normal-light;
-        padding: 5px 0 5px 5px;
+        padding: 5px;
         white-space: nowrap !important;
         svg {
           width: 14px;
           height: 14px;
           fill: $bg-header-light;
-          margin-bottom: -5px;
+          // margin-bottom: -5px;
         }
         &:hover {
           background-color: #1977f20c;
@@ -158,6 +160,10 @@ $bg-hover-dark: #4e4f50;
       }
 
       > .navigation_KeyboardDatePickerTis {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
         padding: 2px;
       }
 
