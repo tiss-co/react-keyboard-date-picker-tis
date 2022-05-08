@@ -88,6 +88,7 @@ export const KeyboardDatePicker = ({
   downIcon,
   updateDatePicker = { current: () => { } },
   autoFocus = false,
+  id,
   ...attrs
 }) => {
   const hasInitialDate = useRef(false);
@@ -326,7 +327,7 @@ export const KeyboardDatePicker = ({
   }, [dateAnchor, yearAnchor]);
 
   return (
-    <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis, containerClassName)} {...attrs}>
+    <div className={classNames(css.keyboardDatePicker_KeyboardDatePickerTis, containerClassName)} {...attrs} id={id}>
       <div
         className={classNames(css.buttonContainer_KeyboardDatePickerTis, {
           [css.Dark_KeyboardDatePickerTis]: darkMode
@@ -531,4 +532,5 @@ KeyboardDatePicker.propTypes = {
   downIcon: PropTypes.any,
   updateDatePicker: PropTypes.object,
   autoFocus: PropTypes.bool,
+  id: PropTypes.string,
 };
