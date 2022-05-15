@@ -176,8 +176,8 @@ $bg-hover-dark: #4e4f50;
         svg {
           vertical-align: middle;
           fill: $bg-header-light;
-          width: 10px;
-          height: 10px;
+          width: 15px !important;
+          height: 15px !important;
         }
 
         &.disable_KeyboardDatePickerTis {
