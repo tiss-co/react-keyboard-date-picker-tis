@@ -297,6 +297,7 @@ export const KeyboardDatePicker = ({
         setInputYear(date.year);
         setInputMonth(addZeroPad(date.month));
         setInputDay(addZeroPad(date.day));
+        onChange && onChange(date);
       }
     }
   }, [dateAnchor]);
