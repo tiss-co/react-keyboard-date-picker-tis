@@ -66,12 +66,6 @@ const getMonthName = (month, withSmallName = false) => {
  */
 const twoZeroPadStart = st => String(st).padStart(2, '0');
 
-const today = new Date();
-const todayDate = {
-  year: today.getFullYear(),
-  month: today.getMonth() + 1,
-  day: today.getDate()
-};
 const createDate = ({ year, month, day, }) =>
   new Date(year, month, day, 0, 0, 0, 0);
 
@@ -91,6 +85,13 @@ export const KeyboardDatePicker = ({
   id,
   ...attrs
 }) => {
+  const today = new Date();
+  const todayDate = {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    day: today.getDate()
+  };
+
   const hasInitialDate = useRef(false);
 
   if (initialDate) {
@@ -143,6 +144,10 @@ export const KeyboardDatePicker = ({
     setInputYear(date?.year);
     setInputMonth(date?.month ? addZeroPad(date.month) : null);
     setInputDay(date?.day ? addZeroPad(date.day) : null);
+  };
+
+  const callOnChange = date => {
+    date.year && date.month && date.day && onChange && onChange(date);
   };
 
   const onMonthChange = () => {
@@ -230,9 +235,8 @@ export const KeyboardDatePicker = ({
     if (!isSelected) setIsSelected(true);
 
     setDateAnchor(null);
-    onChange && onChange(mDate);
-
     setDate(mDate);
+    callOnChange(mDate)
 
     setInputYear(mDate.year);
     setInputMonth(addZeroPad(mDate.month));
@@ -246,9 +250,13 @@ export const KeyboardDatePicker = ({
         ...date,
         year: parseInt(value),
       };
-      onChange && onChange(mDate);
       setDate(mDate);
-    }
+      callOnChange(mDate);
+    } else if (value?.length === 0)
+      setDate(prev => ({
+        ...prev,
+        year: null
+      }))
   };
 
   const onInputMonthChange = (value) => {
@@ -257,8 +265,8 @@ export const KeyboardDatePicker = ({
         ...date,
         month: parseInt(value),
       };
-      onChange && onChange(mDate);
       setDate(mDate);
+      callOnChange(mDate);
       if (parseInt(value) < 0 || parseInt(value) > 12)
         return;
       value?.length === 2 && dayInputRef.current?.focus();
@@ -272,9 +280,9 @@ export const KeyboardDatePicker = ({
         ...date,
         day: parseInt(value),
       };
-      onChange && onChange(mDate);
       setDate(mDate);
-      if (parseInt(value) < 1 || parseInt(value) > 31)
+      callOnChange(mDate);
+      if (parseInt(value) < 0 || parseInt(value) > 31)
         return;
       if (value?.length === 2)
         yearInputRef.current?.focus();
@@ -289,17 +297,18 @@ export const KeyboardDatePicker = ({
   useEffect(onMonthChange, [date.month]);
 
   useEffect(() => {
-    if (dateAnchor) {
-      setTimeout(() => {
-        scrollToItem('selected-minute');
-      }, 0);
-      if (!inputYear && !inputMonth && !inputDay) {
-        setInputYear(date.year);
-        setInputMonth(addZeroPad(date.month));
-        setInputDay(addZeroPad(date.day));
-        onChange && onChange(date);
-      }
+    if (!dateAnchor) return;
+
+    setTimeout(() => {
+      scrollToItem('selected-minute');
+    }, 0);
+
+    if (!inputYear || !inputMonth || !inputDay) {
+      setInputYear(today.getFullYear());
+      setInputMonth(addZeroPad(today.getMonth() + 1));
+      setInputDay(addZeroPad(today.getDate()));
     }
+    callOnChange(date);
   }, [dateAnchor]);
 
   useEffect(() => {
@@ -369,7 +378,16 @@ export const KeyboardDatePicker = ({
               dayInputRef.current?.focus();
           }}
         />
-        <CalendarIcon onClick={e => setDateAnchor(e.currentTarget)} />
+        <CalendarIcon onClick={e => {
+          if (!date.year || !date.month || !date.day || !inputYear || !inputMonth || !inputDay) {
+            setDate({
+              year: today.getFullYear(),
+              month: today.getMonth() + 1,
+              day: today.getDate()
+            });
+          }
+          setDateAnchor(e.currentTarget);
+        }} />
       </div>
 
       <Popover
