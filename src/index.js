@@ -99,7 +99,6 @@ export const KeyboardDatePicker = ({
   } else {
     initialDate = { ...todayDate };
   }
-  const [isSelected, setIsSelected] = useState(false);
 
   const initialMonthLength = hasInitialDate ?
     new Date(
@@ -128,7 +127,6 @@ export const KeyboardDatePicker = ({
   const dayInputRef = useRef();
 
   updateDatePicker.current = (date) => {
-    if (!isSelected) setIsSelected(true);
 
     setDateAnchor(null);
     setDate(date || todayDate);
@@ -146,8 +144,9 @@ export const KeyboardDatePicker = ({
     setInputDay(date?.day ? addZeroPad(date.day) : null);
   };
 
-  const callOnChange = date => {
-    date.year && date.month && date.day && onChange && onChange(date);
+  const callOnChange = (date, { inputYear, inputMonth, inputDay }) => {
+    date.year && date.month && date.day &&
+      inputYear && inputMonth && inputDay && onChange && onChange(date);
   };
 
   const onMonthChange = () => {
@@ -232,18 +231,23 @@ export const KeyboardDatePicker = ({
       ...date,
       day: index,
     };
-    if (!isSelected) setIsSelected(true);
+
+    setInputDay(addZeroPad(mDate.day));
+    setInputMonth(addZeroPad(mDate.month));
+    setInputYear(mDate.year);
+
+    setDate(mDate);
 
     setDateAnchor(null);
-    setDate(mDate);
-    callOnChange(mDate)
-
-    setInputYear(mDate.year);
-    setInputMonth(addZeroPad(mDate.month));
-    setInputDay(addZeroPad(mDate.day));
+    callOnChange(mDate, {
+      inputYear: mDate.year,
+      inputMonth: addZeroPad(mDate.month),
+      inputDay: addZeroPad(mDate.day),
+    });
   };
 
   const onInputYearChange = (value) => {
+    if (value?.length !== 4) onChange();
     setInputYear(value);
     if (value?.length === 4) {
       const mDate = {
@@ -251,43 +255,62 @@ export const KeyboardDatePicker = ({
         year: parseInt(value),
       };
       setDate(mDate);
-      callOnChange(mDate);
-    } else if (value?.length === 0)
+      callOnChange(mDate, {
+        inputYear: mDate.year,
+        inputMonth,
+        inputDay,
+      });
+    } else if (value?.length === 0) {
       setDate(prev => ({
         ...prev,
         year: null
       }))
+    }
   };
 
   const onInputMonthChange = (value) => {
+    if (!parseInt(value)) onChange();
+    if (value.length === 2) {
+      if (parseInt(value) < 0 || parseInt(value) > 12)
+        return;
+    }
+    setInputMonth(value);
     if (value?.length >= 1) {
       const mDate = {
         ...date,
         month: parseInt(value),
       };
       setDate(mDate);
-      callOnChange(mDate);
-      if (parseInt(value) < 0 || parseInt(value) > 12)
-        return;
+      callOnChange(mDate, {
+        inputYear,
+        inputMonth: mDate.month,
+        inputDay,
+      });
       value?.length === 2 && dayInputRef.current?.focus();
     }
-    setInputMonth(value);
   };
 
   const onInputDayChange = (value) => {
+    setInputDay(value);
+    if (!parseInt(value)) onChange();
+    if (value?.length === 2) {
+      if (parseInt(value) < 0 || parseInt(value) > 31)
+        return;
+    }
     if (value?.length >= 1) {
       const mDate = {
         ...date,
         day: parseInt(value),
       };
       setDate(mDate);
-      callOnChange(mDate);
-      if (parseInt(value) < 0 || parseInt(value) > 31)
-        return;
+      callOnChange(mDate, {
+        inputYear,
+        inputMonth,
+        inputDay: mDate.day,
+      });
       if (value?.length === 2)
         yearInputRef.current?.focus();
     }
-    setInputDay(value);
   };
 
   useEffect(() => {
@@ -303,12 +326,23 @@ export const KeyboardDatePicker = ({
       scrollToItem('selected-minute');
     }, 0);
 
-    if (!inputYear || !inputMonth || !inputDay) {
+    if (!inputYear || !inputMonth || !inputDay ||
+      inputYear?.length === 0 || inputMonth?.length === 0 || inputDay?.length === 0) {
       setInputYear(today.getFullYear());
       setInputMonth(addZeroPad(today.getMonth() + 1));
       setInputDay(addZeroPad(today.getDate()));
+      callOnChange(date, {
+        inputYear: today.getFullYear(),
+        inputMonth: addZeroPad(today.getMonth() + 1),
+        inputDay: addZeroPad(today.getDate()),
+      });
+    } else {
+      callOnChange(date, {
+        inputYear,
+        inputMonth,
+        inputDay,
+      });
     }
-    callOnChange(date);
   }, [dateAnchor]);
 
   useEffect(() => {
