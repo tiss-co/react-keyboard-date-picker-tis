@@ -72,6 +72,7 @@ const createDate = ({ year, month, day, }) =>
 export const KeyboardDatePicker = ({
   containerClassName,
   className,
+  datePickerClassName,
   onChange,
   initialDate = null,
   min = null,
@@ -442,7 +443,7 @@ export const KeyboardDatePicker = ({
         }}
       >
         <div
-          className={classNames(css.container_KeyboardDatePickerTis, {
+          className={classNames(css.container_KeyboardDatePickerTis, datePickerClassName, {
             [css.hideTime_KeyboardDatePickerTis]: true,
             [css.Dark_KeyboardDatePickerTis]: darkMode
           })}
@@ -511,7 +512,7 @@ export const KeyboardDatePicker = ({
           horizontal: 'center',
         }}
       >
-        <div className={classNames(css.container_YearPickerTis, {
+        <div className={classNames(css.container_YearPickerTis, datePickerClassName, {
           [css.Dark_YearPickerTis]: darkMode
         })}>
           {
@@ -576,6 +577,7 @@ export const KeyboardDatePicker = ({
 KeyboardDatePicker.propTypes = {
   containerClassName: PropTypes.string,
   className: PropTypes.string,
+  datePickerClassName: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   initialDate: PropTypes.object,
   min: PropTypes.object,
